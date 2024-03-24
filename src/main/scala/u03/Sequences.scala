@@ -3,6 +3,8 @@ package u03
 import u02.Modules.Person
 import u03.Optionals.Optional
 
+import scala.annotation.tailrec
+
 object Sequences: // Essentially, generic linked lists
 
   enum Sequence[E]:
@@ -60,6 +62,11 @@ object Sequences: // Essentially, generic linked lists
         case Person.Student(_, _) => Sequence.Nil()
         case Person.Teacher(_, c) => Sequence.Cons(c, Sequence.Nil())
       })
+
+    @tailrec
+    def foldLeft[A, B](l: Sequence[A])(v: B)(accumulator: (B, A) => B): B = l match
+      case Cons(h, t) => foldLeft(t)(accumulator(v, h))(accumulator)
+      case Nil()      => v
 
 @main def trySequences(): Unit =
   import Sequences.*
