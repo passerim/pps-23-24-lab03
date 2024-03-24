@@ -1,5 +1,7 @@
 package u03
 
+import u03.Optionals.Optional
+
 object Sequences: // Essentially, generic linked lists
 
   enum Sequence[E]:
@@ -47,6 +49,10 @@ object Sequences: // Essentially, generic linked lists
         case a if pred(a) => Cons(a, Nil())
         case _            => Nil()
       })
+
+    def min(l: Sequence[Int]): Optional[Int] = l match
+      case Cons(h, t) => Optional.Just(Math.min(h, Optional.orElse(min(t), h)))
+      case _          => Optional.Empty()
 
 @main def trySequences(): Unit =
   import Sequences.*

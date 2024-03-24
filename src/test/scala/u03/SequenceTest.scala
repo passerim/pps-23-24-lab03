@@ -2,6 +2,7 @@ package u03
 
 import org.junit.*
 import org.junit.Assert.*
+import u03.Optionals.Optional
 import u03.Sequences.Sequence
 import u03.Sequences.Sequence.*
 
@@ -49,3 +50,8 @@ class SequenceTest:
       flatMap(l)(v => Cons(v + 1, Cons(v + 2, Nil())))
     )
     assertEquals(Nil(), flatMap(Nil())(v => Cons(v, Nil())))
+
+  @Test def testMin(): Unit =
+    assertEquals(Optional.Just(10), min(l))
+    assertEquals(Optional.Just(1), min(Cons(1, Nil())))
+    assertEquals(Optional.Empty(), min(Nil()))
