@@ -46,6 +46,11 @@ object Streams extends App:
       case n if n > 0 => Cons(() => k, () => fill(n - 1)(k))
       case _          => Empty()
 
+    def pell: Stream[Int] =
+      def _pell(a: Int, b: Int): Stream[Int] =
+        cons(a, _pell(b, 2 * b + a))
+      _pell(0, 1)
+
 @main def tryStreams(): Unit =
   import Streams.*
 
