@@ -152,7 +152,7 @@ object Streams:
 
     // Task 7, svolto da solo
     def fill[A](n: Int)(k: A): Stream[A] = n match
-      case n if n > 0 => Cons(() => k, () => fill(n - 1)(k))
+      case n if n > 0 => cons(k, fill(n - 1)(k))
       case _          => Empty()
 
     // Task 8, svolto da solo
