@@ -2,6 +2,7 @@ package u03
 
 import org.junit.*
 import org.junit.Assert.*
+import u02.Modules.Person
 import u03.Optionals.Optional
 import u03.Sequences.Sequence
 import u03.Sequences.Sequence.*
@@ -55,3 +56,19 @@ class SequenceTest:
     assertEquals(Optional.Just(10), min(l))
     assertEquals(Optional.Just(1), min(Cons(1, Nil())))
     assertEquals(Optional.Empty(), min(Nil()))
+
+  @Test def testGetCourses(): Unit =
+    val l1 = Cons(
+      Person.Student("marco", 2020),
+      Cons(
+        Person.Teacher("luca", "pps"),
+        Cons(
+          Person.Student("alberto", 2020),
+          Cons(
+            Person.Teacher("andrea", "pcd"),
+            Cons(Person.Teacher("giovanni", "asw"), Cons(Person.Teacher("giorgio", "pps"), Nil()))
+          )
+        )
+      )
+    )
+    assertEquals(Cons("pps", Cons("pcd", Cons("asw", Cons("pps", Nil())))), getCourses(l1))

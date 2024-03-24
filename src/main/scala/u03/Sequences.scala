@@ -1,5 +1,6 @@
 package u03
 
+import u02.Modules.Person
 import u03.Optionals.Optional
 
 object Sequences: // Essentially, generic linked lists
@@ -53,6 +54,12 @@ object Sequences: // Essentially, generic linked lists
     def min(l: Sequence[Int]): Optional[Int] = l match
       case Cons(h, t) => Optional.Just(Math.min(h, Optional.orElse(min(t), h)))
       case _          => Optional.Empty()
+
+    def getCourses(s: Sequence[Person]): Sequence[String] =
+      flatMap(s)({
+        case Person.Student(_, _) => Sequence.Nil()
+        case Person.Teacher(_, c) => Sequence.Cons(c, Sequence.Nil())
+      })
 
 @main def trySequences(): Unit =
   import Sequences.*
